@@ -9,6 +9,8 @@ services:
       - 3306:3306
     environment:
       MARIADB_ROOT_PASSWORD: trino
+      MARIADB_USER: trino
+      MARIADB_PASSWORD: trino
     networks:
       - trino-network
   postgresql:
@@ -18,7 +20,9 @@ services:
     ports:
       - 5432:5432
     environment:
+      POSTGRES_USER: trino
       POSTGRES_PASSWORD: trino
+      POSTGRES_DB: trino
     networks:
       - trino-network
   mongodb:
@@ -55,6 +59,8 @@ services:
       - mariadb
       - postgresql
       - mongodb
+    volumes:
+      - ../catalogs:/etc/trino/catalog
   cloudbeaver:
     image: dbeaver/cloudbeaver
     container_name: cloudbeaver

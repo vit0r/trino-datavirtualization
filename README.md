@@ -24,3 +24,11 @@ docker-compose -f docker/docker-compose.yaml down -d
 4. [trino](https://github.com/trinodb/trino/blob/master/core/docker/README.md)
 5. [dbeaver](https://github.com/dbeaver/cloudbeaver/wiki/Run-Docker-Container)
 6. [minio](https://hub.docker.com/r/minio/minio)
+
+## trino datasources
+
+### <https://trino.io/ecosystem/data-source>
+
+1. [mariadb](https://trino.io/docs/current/connector/mariadb.html)
+2. [postgres](https://trino.io/docs/current/connector/postgresql.html)
+3. [mongodb](https://trino.io/docs/current/connector/mongodb.html)
