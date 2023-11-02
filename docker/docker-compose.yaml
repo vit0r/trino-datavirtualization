@@ -72,6 +72,10 @@ services:
       - trino-network
     depends_on:
       - trino
+    volumes:
+      - cloudbeaver:/opt/cloudbeaver
 networks: 
   trino-network:
     driver: bridge
+volumes:
+  cloudbeaver:
