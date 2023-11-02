@@ -1,0 +1,60 @@
+version: '3'
+services:
+  mariadb:
+    image: mariadb
+    container_name: mariadb
+    hostname: mariadb
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    environment:
+      MARIADB_ROOT_PASSWORD: trino
+    networks:
+      - trino-network
+  postgresql:
+    image: postgres
+    container_name: postgres
+    hostname: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: trino
+    networks:
+      - trino-network
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    hostname: mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: trino
+      MONGO_INITDB_ROOT_PASSWORD: trino
+    networks:
+      - trino-network
+  trino:
+    image: trinodb/trino
+    container_name: trino
+    hostname: trino
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    networks:
+      - trino-network
+    depends_on:
+      - mariadb
+      - postgresql
+      - mongodb
+  cloudbeaver:
+    image: dbeaver/cloudbeaver
+    container_name: cloudbeaver
+    hostname: cloudbeaver
+    restart: unless-stopped 
+    ports:
+      - 8978:8978
+    networks:
+      - trino-network
+    depends_on:
+      - trino
+networks: 
+  trino-network:
+    driver: bridge
