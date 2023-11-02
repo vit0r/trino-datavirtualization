@@ -31,6 +31,17 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: trino
     networks:
       - trino-network
+  minio:
+    image: quay.io/minio/minio
+    container_name: minio
+    hostname: minio
+    restart: unless-stopped
+    ports:
+      - 9000:9000
+      - 9001:9001
+    networks:
+      - trino-network
+    command: ["server", "/data", "--console-address", ":9001"]
   trino:
     image: trinodb/trino
     container_name: trino
